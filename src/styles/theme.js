@@ -7,6 +7,7 @@ const theme = {
 
   primary: '#0ca1b3',
   secondary: '#e6f5f8',
+  inactive: '#bcc8d9',
   white: '#fff',
   black: '#000',
   danger: '#a62622',
