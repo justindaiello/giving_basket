@@ -16,7 +16,6 @@ export const StyledContentWrapper = styled.div`
   flex: 1;
   justify-content: center;
   align-items: center;
-  flex-flow: column nowrap;
 
   /* box-model */
   padding: 2rem;
