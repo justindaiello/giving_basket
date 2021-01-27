@@ -19,6 +19,13 @@ const theme = {
   fontSizeSm: rem(12),
   fontSizeMd: rem(14),
   fontSizeLg: rem(16),
+
+  // *************************
+  // ** Borders and Shadows **
+  // *************************
+  borderRadiusSm: '10px',
+  borderRadius: '30px',
+  boxShadow: '0px 0px 10px rgba(156, 156, 156, 0.5)',
 };
 
 export default theme;

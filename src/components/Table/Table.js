@@ -1,10 +1,10 @@
 import React from 'react';
-import { array } from 'prop-types';
+import { array, func } from 'prop-types';
 
 import Button from '../Button';
 import { StyledTable, StyledHeaderItem, StyledTableItem } from './Table.styled';
 
-function Table({ headItems, data }) {
+function Table({ headItems, data, setModalOpen }) {
   return (
     <StyledTable>
       <thead>
@@ -21,7 +21,7 @@ function Table({ headItems, data }) {
             <StyledTableItem>{item.address}</StyledTableItem>
             <StyledTableItem>{item.amount}</StyledTableItem>
             <StyledTableItem className="hasBtn">
-              <Button>Edit</Button>
+              <Button onClick={() => setModalOpen(true)}>Edit</Button>
             </StyledTableItem>
             <StyledTableItem className="hasBtn">
               <Button>Send</Button>
@@ -36,6 +36,7 @@ function Table({ headItems, data }) {
 Table.propTypes = {
   data: array,
   headItems: array,
+  setModalOpen: func,
 };
 
 export default Table;

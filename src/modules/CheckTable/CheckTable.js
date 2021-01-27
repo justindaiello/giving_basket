@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Table from '../../components/Table';
 import { testTableData } from '../../utils/test-data';
+import AddressModal from '../../components/AddressModal';
 import { StyledTableWrapper } from './CheckTable.styled';
 
 const tableHeadings = [
@@ -13,11 +14,22 @@ const tableHeadings = [
 ];
 
 function CheckTable() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
-    <StyledTableWrapper>
-      <h1 className="tableTitle">Giving Basket Checks</h1>
-      <Table headItems={tableHeadings} data={testTableData} />
-    </StyledTableWrapper>
+    <React.Fragment>
+      <StyledTableWrapper>
+        <h1 className="tableTitle">Giving Basket Checks</h1>
+        <Table
+          data={testTableData}
+          headItems={tableHeadings}
+          setModalOpen={setModalOpen}
+        />
+      </StyledTableWrapper>
+      {modalOpen && (
+        <AddressModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      )}
+    </React.Fragment>
   );
 }
 
