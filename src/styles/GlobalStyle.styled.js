@@ -55,6 +55,11 @@ const GlobalStyle = createGlobalStyle`
     /* visual */
 		opacity: 0;
 	}
+
+  /* Custom toast override */
+  .Toastify__toast--info {
+    background: ${({ theme }) => theme.primary};
+  }
 `;
 
 export default GlobalStyle;

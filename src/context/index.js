@@ -1,6 +1,8 @@
 import React from 'react';
 import { element } from 'prop-types';
+import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
 
 import theme from '../styles/theme';
 import GlobalStyle from '../styles/GlobalStyle.styled';
@@ -17,6 +19,7 @@ function AppProviders({ children }) {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         {children}
+        <ToastContainer autoClose={2000} position="top-right" />
       </ThemeProvider>
     </React.Fragment>
   );
