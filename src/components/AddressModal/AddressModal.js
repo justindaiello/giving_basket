@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import { func, bool } from 'prop-types';
+import { func, bool, object } from 'prop-types';
 
 import Input from '../Input';
 import Button from '../Button';
-import { StyledModalBody, StyledFormGroup } from './AddressModal.styled';
+import { StyledModalForm, StyledFormGroup } from './AddressModal.styled';
 
-function AddressModal({ modalOpen, setModalOpen, submit }) {
+function AddressModal({ modalOpen, setModalOpen, handleSubmit, editData }) {
+  const [formData, setFormData] = useState({
+    addressLine1: editData?.addressLine1 || '',
+    city: editData?.city || '',
+    state: editData?.state || '',
+    zipcode: editData?.zipcode || '',
+    id: editData?.id || '',
+  });
+
+  /**
+   * Pipe input data into state
+   * @param {Object} e - event object, destructured down to name and value
+   */
+  function handleChange(e) {
+    const { name, value } = e.target;
+
+    setFormData((prevState) => {
+      return { ...prevState, [name]: value };
+    });
+  }
+
   return (
     <ReactModal
       isOpen={modalOpen}
@@ -14,23 +34,53 @@ function AddressModal({ modalOpen, setModalOpen, submit }) {
       appElement={document.getElementById('root')}
       className="addressModal"
     >
-      <StyledModalBody>
-        <h2>Update Address</h2>
+      <StyledModalForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(formData);
+        }}
+      >
+        <h2>{`Update Address for ${editData?.name || ''}`}</h2>
         <StyledFormGroup>
           <label htmlFor="addressLine1">Address</label>
-          <Input id="addressLine1" name="addressLine1" placeholder="Address" />
+          <Input
+            id="addressLine1"
+            name="addressLine1"
+            placeholder="Address"
+            value={formData.addressLine1}
+            onChange={handleChange}
+            autoFocus
+          />
         </StyledFormGroup>
         <StyledFormGroup>
           <label htmlFor="city">City</label>
-          <Input id="city" name="city" placeholder="City" />
+          <Input
+            id="city"
+            name="city"
+            placeholder="City"
+            value={formData.city}
+            onChange={handleChange}
+          />
         </StyledFormGroup>
         <StyledFormGroup>
           <label htmlFor="state">State</label>
-          <Input id="state" name="state" placeholder="State" />
+          <Input
+            id="state"
+            name="state"
+            placeholder="State"
+            value={formData.state}
+            onChange={handleChange}
+          />
         </StyledFormGroup>
         <StyledFormGroup>
-          <label htmlFor="zipCode">Zip Code</label>
-          <Input id="zipCode" name="zipCode" placeholder="Zip Code" />
+          <label htmlFor="zipcode">Zip Code</label>
+          <Input
+            id="zipcode"
+            name="zipcode"
+            placeholder="Zip Code"
+            value={formData.zipcode}
+            onChange={handleChange}
+          />
         </StyledFormGroup>
         <div className="btnGroup">
           <Button type="button" onClick={() => setModalOpen(false)}>
@@ -38,15 +88,16 @@ function AddressModal({ modalOpen, setModalOpen, submit }) {
           </Button>
           <Button type="submit">Update</Button>
         </div>
-      </StyledModalBody>
+      </StyledModalForm>
     </ReactModal>
   );
 }
 
 AddressModal.propTypes = {
-  submit: func,
   modalOpen: bool,
+  editData: object,
   setModalOpen: func,
+  handleSubmit: func,
 };
 
 export default AddressModal;

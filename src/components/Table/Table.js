@@ -4,7 +4,7 @@ import { array, func } from 'prop-types';
 import Button from '../Button';
 import { StyledTable, StyledHeaderItem, StyledTableItem } from './Table.styled';
 
-function Table({ headItems, data, setModalOpen }) {
+function Table({ headItems, data, handleModalOpen, sendCheck }) {
   return (
     <StyledTable>
       <thead>
@@ -18,13 +18,20 @@ function Table({ headItems, data, setModalOpen }) {
         {data.map((item) => (
           <tr key={item.id}>
             <StyledTableItem>{item.name}</StyledTableItem>
-            <StyledTableItem>{item.address}</StyledTableItem>
+            <StyledTableItem>{item.addressLine1}</StyledTableItem>
             <StyledTableItem>{item.amount}</StyledTableItem>
             <StyledTableItem className="hasBtn">
-              <Button onClick={() => setModalOpen(true)}>Edit</Button>
+              <Button
+                onClick={() => handleModalOpen(item)}
+                disabled={item.isSent}
+              >
+                Edit
+              </Button>
             </StyledTableItem>
             <StyledTableItem className="hasBtn">
-              <Button>Send</Button>
+              <Button onClick={() => sendCheck(item.id)} disabled={item.isSent}>
+                {item.isSent ? 'Sent' : 'Send'}
+              </Button>
             </StyledTableItem>
           </tr>
         ))}
@@ -35,8 +42,9 @@ function Table({ headItems, data, setModalOpen }) {
 
 Table.propTypes = {
   data: array,
+  sendCheck: func,
   headItems: array,
-  setModalOpen: func,
+  handleModalOpen: func,
 };
 
 export default Table;

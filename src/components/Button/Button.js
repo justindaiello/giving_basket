@@ -41,7 +41,7 @@ const Button = styled.button`
     left: -6px;
 
     /* box-model */
-    border: 2 px solid transparent;
+    border: 2px solid transparent;
     border-radius: 100px;
   }
 
@@ -53,6 +53,13 @@ const Button = styled.button`
       /* visual */
       border-color: ${({ theme }) => theme.primary};
     }
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    /* visual */
+    opacity: 0.45;
+    cursor: not-allowed !important;
   }
 `;
 

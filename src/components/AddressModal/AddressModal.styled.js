@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledModalBody = styled.form`
+export const StyledModalForm = styled.form`
   /* positioning */
   display: grid;
   grid-template-columns: 1fr;

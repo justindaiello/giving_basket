@@ -10,7 +10,7 @@ import GlobalStyle from '../styles/GlobalStyle.styled';
 /**
  * @description
  * App provider component wraps the app in important context
- * Here we're wrapping the app with context for Styled Components & injecting out global styling
+ * Here we're wrapping the app with context for Styled Components, ToastContainer & injecting our global styling
  * This is also where we can add a redux store provider or react router browser router
  */
 function AppProviders({ children }) {
