@@ -211,3 +211,20 @@ export const testTableDataAlt = {
     },
   ],
 };
+
+export const jestTableData = {
+  prev: false,
+  next: true,
+  data: [
+    {
+      name: 'Nonprofit 1',
+      addressLine1: '123 Street St.',
+      city: 'New York',
+      state: 'NY',
+      zipcode: '12986',
+      amount: 10000,
+      id: 0,
+      isSent: true,
+    },
+  ],
+};

@@ -14,6 +14,11 @@ export const StyledTableWrapper = styled.div`
     /* typography */
     text-align: center;
   }
+
+  .pageInfo {
+    /* box-model */
+    margin: 0 0 0 0.6rem;
+  }
 `;
 
 export const StyledButtonGroup = styled.div`

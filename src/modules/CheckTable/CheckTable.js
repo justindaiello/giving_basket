@@ -12,7 +12,7 @@ import {
   StyledPageButton,
 } from './CheckTable.styled';
 
-const tableHeadings = [
+export const tableHeadings = [
   'Nonprofit Name',
   'Mailing Address',
   'Amount USD',
@@ -89,6 +89,7 @@ function CheckTable() {
     <React.Fragment>
       <StyledTableWrapper>
         <h1 className="tableTitle">Giving Basket Checks</h1>
+        <p className="pageInfo">Page {!checkData.prev ? 1 : 2} of 2</p>
         <Table
           data={checkData.data}
           sendCheck={sendCheck}
@@ -96,10 +97,18 @@ function CheckTable() {
           handleModalOpen={handleModalOpen}
         />
         <StyledButtonGroup>
-          <StyledPageButton onClick={previous} disabled={!checkData.prev}>
+          <StyledPageButton
+            aria-label="previous page"
+            onClick={previous}
+            disabled={!checkData.prev}
+          >
             &larr;
           </StyledPageButton>
-          <StyledPageButton onClick={next} disabled={!checkData.next}>
+          <StyledPageButton
+            aria-label="next page"
+            onClick={next}
+            disabled={!checkData.next}
+          >
             &rarr;
           </StyledPageButton>
         </StyledButtonGroup>
