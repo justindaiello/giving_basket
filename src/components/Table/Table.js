@@ -1,4 +1,5 @@
 import React from 'react';
+import { isEmpty } from 'ramda';
 import { array, func } from 'prop-types';
 
 import Button from '../Button';
@@ -21,7 +22,9 @@ function Table({ headItems, data, handleModalOpen, sendCheck }) {
             <StyledTableItem>{item.name}</StyledTableItem>
             <StyledTableItem>
               <span>{item.addressLine1}</span>
-              <span>{`${item.city}, ${item.state} ${item.zipcode}`}</span>
+              <span>{`${item.city}${isEmpty(item.city) ? '' : ','} ${
+                item.state
+              } ${item.zipcode}`}</span>
             </StyledTableItem>
             <StyledTableItem>{formatCurrency(item.amount)}</StyledTableItem>
             <StyledTableItem className="hasBtn">

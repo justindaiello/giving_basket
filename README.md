@@ -16,5 +16,9 @@ In the project directory, you can run:
 
 Opens the app on an open port.
 
+`yarn test`
+
+Runs unit tests.
+
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
