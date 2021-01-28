@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { isEmpty } from 'ramda';
 import { toast } from 'react-toastify';
 
 import Table from '../../components/Table';
+import { validateData } from '../../utils/functions';
 import { testTableData } from '../../utils/test-data';
 import AddressModal from '../../components/AddressModal';
 import { StyledTableWrapper } from './CheckTable.styled';
@@ -18,6 +20,7 @@ function CheckTable() {
   const [modalOpen, setModalOpen] = useState(false);
   const [checkData, setCheckData] = useState([...testTableData]);
   const [editData, setEditData] = useState({});
+  const [errors, setErrors] = useState({});
 
   /**
    * Update check status to sent & render toast message
@@ -37,6 +40,7 @@ function CheckTable() {
    * @param {Object} data - table row data
    */
   function handleModalOpen(data) {
+    setErrors({});
     setEditData(data);
     return setModalOpen(true);
   }
@@ -46,13 +50,17 @@ function CheckTable() {
    * @param {Object} formData - updated form data
    */
   function handleSubmit(formData) {
-    let updated = checkData.map((item) =>
-      item.id === formData.id ? { ...item, ...formData } : item,
-    );
+    const validation = validateData(formData, setErrors);
 
-    setCheckData(updated);
-    setModalOpen(false);
-    return toast.info('Address successfully edited');
+    if (isEmpty(validation)) {
+      let updated = checkData.map((item) =>
+        item.id === formData.id ? { ...item, ...formData } : item,
+      );
+
+      setCheckData(updated);
+      setModalOpen(false);
+      return toast.info('Address successfully edited');
+    }
   }
 
   return (
@@ -68,6 +76,7 @@ function CheckTable() {
       </StyledTableWrapper>
       {modalOpen && (
         <AddressModal
+          errors={errors}
           editData={editData}
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}

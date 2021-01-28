@@ -6,7 +6,13 @@ import Input from '../Input';
 import Button from '../Button';
 import { StyledModalForm, StyledFormGroup } from './AddressModal.styled';
 
-function AddressModal({ modalOpen, setModalOpen, handleSubmit, editData }) {
+function AddressModal({
+  errors,
+  editData,
+  modalOpen,
+  setModalOpen,
+  handleSubmit,
+}) {
   const [formData, setFormData] = useState({
     addressLine1: editData?.addressLine1 || '',
     city: editData?.city || '',
@@ -49,6 +55,7 @@ function AddressModal({ modalOpen, setModalOpen, handleSubmit, editData }) {
             placeholder="Address"
             value={formData.addressLine1}
             onChange={handleChange}
+            error={errors.addressLine1}
             autoFocus
           />
         </StyledFormGroup>
@@ -60,6 +67,7 @@ function AddressModal({ modalOpen, setModalOpen, handleSubmit, editData }) {
             placeholder="City"
             value={formData.city}
             onChange={handleChange}
+            error={errors.city}
           />
         </StyledFormGroup>
         <StyledFormGroup>
@@ -70,6 +78,7 @@ function AddressModal({ modalOpen, setModalOpen, handleSubmit, editData }) {
             placeholder="State"
             value={formData.state}
             onChange={handleChange}
+            error={errors.state}
           />
         </StyledFormGroup>
         <StyledFormGroup>
@@ -80,6 +89,7 @@ function AddressModal({ modalOpen, setModalOpen, handleSubmit, editData }) {
             placeholder="Zip Code"
             value={formData.zipcode}
             onChange={handleChange}
+            error={errors.zipcode}
           />
         </StyledFormGroup>
         <div className="btnGroup">

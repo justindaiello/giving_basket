@@ -8,10 +8,12 @@ export const StyledTable = styled.table`
 
   tbody {
     tr:nth-child(odd) {
+      /* visual */
       background-color: ${({ theme }) => theme.secondary};
     }
 
     .hasBtn {
+      /* visual */
       background: ${({ theme }) => theme.white};
     }
   }
@@ -26,4 +28,9 @@ export const StyledHeaderItem = styled.th`
 export const StyledTableItem = styled.td`
   /* box-model */
   padding: 0.5rem 0.25rem;
+
+  span {
+    /* positioning */
+    display: block;
+  }
 `;

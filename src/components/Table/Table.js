@@ -2,6 +2,7 @@ import React from 'react';
 import { array, func } from 'prop-types';
 
 import Button from '../Button';
+import { formatCurrency } from '../../utils/functions';
 import { StyledTable, StyledHeaderItem, StyledTableItem } from './Table.styled';
 
 function Table({ headItems, data, handleModalOpen, sendCheck }) {
@@ -18,8 +19,11 @@ function Table({ headItems, data, handleModalOpen, sendCheck }) {
         {data.map((item) => (
           <tr key={item.id}>
             <StyledTableItem>{item.name}</StyledTableItem>
-            <StyledTableItem>{item.addressLine1}</StyledTableItem>
-            <StyledTableItem>{item.amount}</StyledTableItem>
+            <StyledTableItem>
+              <span>{item.addressLine1}</span>
+              <span>{`${item.city}, ${item.state} ${item.zipcode}`}</span>
+            </StyledTableItem>
+            <StyledTableItem>{formatCurrency(item.amount)}</StyledTableItem>
             <StyledTableItem className="hasBtn">
               <Button
                 onClick={() => handleModalOpen(item)}

@@ -5,8 +5,10 @@ const Input = styled.input`
   width: 100%;
   height: 40px;
   padding: 0.375rem;
-  border: ${({ theme }) => `1px solid ${theme.inactive}`};
+  border: 1px solid;
   border-radius: ${({ theme }) => theme.borderRadiusSm};
+  border-color: ${({ theme, error }) =>
+    error ? theme.danger : theme.inactive};
 
   /* positioning */
   display: block;
@@ -28,7 +30,7 @@ const Input = styled.input`
 
   &:focus {
     /* box-model */
-    border: ${({ theme }) => `1px solid ${theme.primary}`};
+    border-color: ${({ theme }) => theme.primary};
     outline: 0;
   }
 `;
