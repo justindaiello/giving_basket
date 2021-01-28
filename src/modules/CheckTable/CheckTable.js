@@ -4,9 +4,13 @@ import { toast } from 'react-toastify';
 
 import Table from '../../components/Table';
 import { validateData } from '../../utils/functions';
-import { testTableData } from '../../utils/test-data';
 import AddressModal from '../../components/AddressModal';
-import { StyledTableWrapper } from './CheckTable.styled';
+import { testTableData, testTableDataAlt } from '../../utils/test-data';
+import {
+  StyledTableWrapper,
+  StyledButtonGroup,
+  StyledPageButton,
+} from './CheckTable.styled';
 
 const tableHeadings = [
   'Nonprofit Name',
@@ -18,7 +22,7 @@ const tableHeadings = [
 
 function CheckTable() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [checkData, setCheckData] = useState([...testTableData]);
+  const [checkData, setCheckData] = useState(testTableData);
   const [editData, setEditData] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -27,11 +31,13 @@ function CheckTable() {
    * @param {number} id - unique identifer for check entry
    */
   function sendCheck(id) {
-    let updated = checkData.map((item) =>
+    let updated = checkData.data.map((item) =>
       item.id === id ? { ...item, isSent: true } : item,
     );
 
-    setCheckData(updated);
+    setCheckData((prevState) => {
+      return { ...prevState, data: updated };
+    });
     return toast.info('Check successfully sent');
   }
 
@@ -53,14 +59,30 @@ function CheckTable() {
     const validation = validateData(formData, setErrors);
 
     if (isEmpty(validation)) {
-      let updated = checkData.map((item) =>
+      let updated = checkData.data.map((item) =>
         item.id === formData.id ? { ...item, ...formData } : item,
       );
 
-      setCheckData(updated);
       setModalOpen(false);
+      setCheckData((prevState) => {
+        return { ...prevState, data: updated };
+      });
       return toast.info('Address successfully edited');
     }
+  }
+
+  /**
+   * Mock pagination to next page
+   */
+  function next() {
+    if (checkData.next) setCheckData(testTableDataAlt);
+  }
+
+  /**
+   * Mock pagination to previous page
+   */
+  function previous() {
+    if (checkData.prev) setCheckData(testTableData);
   }
 
   return (
@@ -68,11 +90,19 @@ function CheckTable() {
       <StyledTableWrapper>
         <h1 className="tableTitle">Giving Basket Checks</h1>
         <Table
-          data={checkData}
+          data={checkData.data}
           sendCheck={sendCheck}
           headItems={tableHeadings}
           handleModalOpen={handleModalOpen}
         />
+        <StyledButtonGroup>
+          <StyledPageButton onClick={previous} disabled={!checkData.prev}>
+            &larr;
+          </StyledPageButton>
+          <StyledPageButton onClick={next} disabled={!checkData.next}>
+            &rarr;
+          </StyledPageButton>
+        </StyledButtonGroup>
       </StyledTableWrapper>
       {modalOpen && (
         <AddressModal
